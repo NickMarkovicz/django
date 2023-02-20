@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'shop.products'
 ]
 
 MIDDLEWARE = [
@@ -77,9 +78,9 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "markovicz",
-        "USER": "markovicz",
-        "PASSWORD": "markovicz",
+        "NAME": "django",
+        "USER": "django",
+        "PASSWORD": "django",
         "HOST": "localhost",
         "PORT": 5432,
     }
