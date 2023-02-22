@@ -7,6 +7,6 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 
 
-def index(request):
+def products_index(request):
     logger.info(request.GET, request.POST)
-    return HttpResponse("It works.")
+    return HttpResponse("Products app works.")
