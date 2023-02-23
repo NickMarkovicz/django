@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,11 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u#gd@(=uxvg4iq33b7^u+d0a()&^&49x^t$xfonh2qw*mbunkr'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = bool(os.getenv("DEBUG"))
 
 ALLOWED_HOSTS = []
 
@@ -45,7 +43,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -75,14 +73,19 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+CUSTOM_VAR = os.getenv("CUSTOM_VAR")
+FIRST_VAR = int(os.getenv("FIRST_VAR"))
+SECOND_VAR = os.getenv("SECOND_VAR")
+THIRD_VAR = os.getenv("THIRD_VAR")
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django",
-        "USER": "django",
-        "PASSWORD": "django",
-        "HOST": "localhost",
-        "PORT": 5432,
+        "ENGINE": os.getenv("POSTGRESQL_ENGINE"),
+        "NAME": os.getenv("POSTGRESQL_NAME"),
+        "USER": os.getenv("POSTGRESQL_USER"),
+        "PASSWORD": os.getenv("POSTGRESQL_PASSWORD"),
+        "HOST": os.getenv("POSTGRESQL_HOST"),
+        "PORT": os.getenv("POSTGRESQL_PORT"),
     }
 }
 
@@ -127,3 +130,29 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging
+
+LOGGING = {
+   'version': 1,
+   'disable_existing_loggers': False,
+   'handlers': {
+       'console': {
+           'class': 'logging.StreamHandler',
+           'formatter': 'simple',
+       },
+   },
+   'formatters': {
+       'simple': {'format': '%(levelname)s %(asctime)s %(message)s'},
+   },
+   'loggers': {
+       '': {
+           'handlers': ['console'],
+           'level': 'INFO',
+       },
+       'django.db.backends': {
+           'handlers': ['console'],
+           'level': 'ERROR',
+       }
+   }
+}
