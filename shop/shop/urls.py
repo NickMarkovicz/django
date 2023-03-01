@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from products.views import index
 from products.views import products_view
-from products.views import variables
 from profiles.views import profiles_view
 
 urlpatterns = [
@@ -25,5 +24,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', products_view, name='products_view'),
     path('profiles/', profiles_view, name='profiles_view'),
-    path('variables/', variables, name='variables')
 ]
