@@ -2,6 +2,7 @@ from django.shortcuts import render
 import logging
 from django.http import HttpResponse
 from django.conf import settings
+from products.models import Product
 
 logger = logging.getLogger(__name__)
 
@@ -13,15 +14,11 @@ def index(request):
 
 
 def products_view(request):
-    if request.GET.get("parameter"):
-        logger.info(f"Parameter is: {request.GET.get('parameter')}")
-        return HttpResponse(f"Parameter is: {request.GET.get('parameter')}")
-    return HttpResponse(f"No parameters.")
-
-
-def variables(request):
-    logger.info(f"{settings.FIRST_VAR}")
-    if request.method == "GET":
-        if int(settings.FIRST_VAR) == 1:
-            return HttpResponse(f"{settings.SECOND_VAR}")
-        return HttpResponse(f"{settings.THIRD_VAR}")
+    if request.GET.get("product"):
+        product = Product.objects.filter(title__contains=f"{request.GET.get('product')}").first()
+        return HttpResponse(f"""Title: {product.title},
+        Price: {product.price},
+        Description: {product.description}""")
+    product_list = Product.objects.all()
+    return HttpResponse(f"""All products:
+{[product.title for product in product_list]}""")
