@@ -73,11 +73,6 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-CUSTOM_VAR = os.getenv("CUSTOM_VAR")
-FIRST_VAR = int(os.getenv("FIRST_VAR"))
-SECOND_VAR = os.getenv("SECOND_VAR")
-THIRD_VAR = os.getenv("THIRD_VAR")
-
 DATABASES = {
     "default": {
         "ENGINE": os.getenv("POSTGRESQL_ENGINE"),
