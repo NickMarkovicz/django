@@ -1,5 +1,5 @@
 from django.contrib import admin
-from profiles.models import Profile
+from profiles.models import Profile, Address
 
 # Register your models here.
 
@@ -10,3 +10,11 @@ class ProfileAdmin(admin.ModelAdmin):
     fields = ("user", "first_name", "last_name", "age", "created_at")
     readonly_fields = ("created_at",)
     search_fields = ("first_name", "last_name")
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ("user", "city", "street", "created_at")
+    fields = ("user", "city", "street", "created_at")
+    readonly_fields = ("created_at",)
+    search_fields = ("user", "city", "street", "created_at")
