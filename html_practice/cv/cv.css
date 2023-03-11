@@ -1,0 +1,15 @@
+.rounded-borders {
+    border-radius: 15px;
+}
+
+.limited-size {
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.centered {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
